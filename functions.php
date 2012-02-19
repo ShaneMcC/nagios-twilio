@@ -125,13 +125,15 @@
 		return array($problems, $pids);
 	}
 
-	function getProblemResponse($problems) {
+	function getProblemResponse($problems, $greeting = true) {
 		global $companyName;
 
 		$count = count($problems);
 
 		$response = new Services_Twilio_Twiml();
-		$response->say(createTTS('This is the ' . $companyName . ' Monitoring service.'));
+		if ($greeting) {
+			$response->say(createTTS('This is the ' . $companyName . ' Monitoring service.'));
+		}
 		if ($count == 1) {
 			$response->say(createTTS('There is currently ' . $count . ' problem in nagios that require attention.'));
 		} else {
@@ -146,5 +148,54 @@
 		$response->say(createTTS('End of problems. Good Bye.'));
 
 		return (String)$response;
+	}
+
+	function checkOKCode($dieOnFail = true) {
+		global $okCode, $adminNumbers;
+		$result = isset($_REQUEST['OkCode']) && $_REQUEST['OkCode'] == $okCode;
+		$fromNumber = isset($_REQUEST['From']) ? $_REQUEST['From'] : '';
+
+		if (!empty($fromNumber) && in_array($fromNumber, $adminNumbers)) {
+			return true;
+		}
+
+		if (!$result && $dieOnFail) {
+			header('Content-type: text/xml');
+			$response = new Services_Twilio_Twiml();
+			$response->say(createTTS('Access Denied.'));
+			die((String)$response);
+		}
+
+		return $result;
+	}
+
+	function getAccessCode($service) {
+		global $companyName, $baseURL;
+		$response = new Services_Twilio_Twiml();
+		$greeting = createTTS('This is the ' . $companyName . ' Monitoring service. In order to access this service, please enter your access code, followed by the star key.');
+		$response->gather(array('action' => getURL('access', array('service' => 'inbound'), false), 'method' => 'GET', 'finishOnKey' => '*'))->say($greeting);
+		$response->say(createTTS('Sorry, we were unable to verify your access code. Good Bye.'));
+		return $response;
+	}
+
+	function getURL($function, $params = array(), $ok = true) {
+		global $okCode, $baseURL;
+		$url = $baseURL;
+
+		$url .= $function . '.php?';
+
+		$bits = array();
+
+		if ($ok) {
+			$bits[] = urlencode('OkCode') . '=' . urlencode($okCode);
+		}
+
+		foreach ($params as $k => $v) {
+			$bits[] = urlencode($k) . '=' . urlencode($v);
+		}
+
+		$url .= implode('&', $bits);
+
+		return $url;
 	}
 ?>

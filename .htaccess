@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule "^(.*/)?(\.git|twilio-php|nagios-status)/?" - [F,L]
+RewriteRule "^.*\.sqlite" - [F,L]

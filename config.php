@@ -33,6 +33,20 @@
 	// Twilio Auth Token
 	$accountAuthCode = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
+	// Access Code for inbound calls.
+	$accessCode = '123';
+
+	// Code passed in to call handling scripts to confirm access is allowed
+	// to prevent anyone from just accessing your twiml files and obtaining
+	// possibly sensitive information.
+	//
+	// This should be changed.
+	$okCode = 'es58howdxTR45';
+
+	// Array of numbers that are treated as having an okCode set at all
+	// times
+	$adminNumbers = array();
+
 	// Some word-replacements for TTS.
 	$tts['search'] = array();
 	$tts['replace'] = array();

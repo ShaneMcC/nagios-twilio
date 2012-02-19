@@ -9,7 +9,7 @@
 		$db->queryExec('INSERT INTO callbacks (data) VALUES (\'' . sqlite_escape_string($data) . '\');');
 		$callbackid = $db->lastInsertRowid();
 
-		$url = $baseURL . '/getAlertData.php?callbackid='.$callbackid;
+		$url = getURL('getAlertData', array('callbackid' => $callbackid));
 		foreach ($pids as $id) {
 			$pid = sqlite_escape_string($id);
 			@$db->queryExec('INSERT INTO alerts (alertid, callback) VALUES ("' . $pid . '", ' . $callbackid . ');');
