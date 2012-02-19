@@ -56,6 +56,10 @@
 	$tts['replace'][] = 'nag eos';
 
 	// Pronounce protocols correctly
+	$tts['search'][] = 'mysql';
+	$tts['replace'][] = 'my S Q L ';
+	$tts['search'][] = 'sql';
+	$tts['replace'][] = 'sequel ';
 	$tts['search'][] = 'ssh';
 	$tts['replace'][] = 'S S H';
 	$tts['search'][] = 'rdp';
