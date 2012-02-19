@@ -68,6 +68,8 @@
 	$tts['replace'][] = 'C P U';
 	$tts['search'][] = 'dns';
 	$tts['replace'][] = 'D N S';
+	$tts['search'][] = 'ftp';
+	$tts['replace'][] = 'F T P';
 	$tts['search'][] = 'imap';
 	$tts['replace'][] = 'i map';
 	$tts['search'][] = 'pop3';

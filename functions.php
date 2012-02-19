@@ -135,9 +135,9 @@
 			$response->say(createTTS('This is the ' . $companyName . ' Monitoring service.'));
 		}
 		if ($count == 1) {
-			$response->say(createTTS('There is currently ' . $count . ' problem in nagios that require attention.'));
+			$response->say(createTTS('There is currently ' . $count . ' new problem in nagios that requires attention.'));
 		} else {
-			$response->say(createTTS('There are currently ' . $count . ' problems in nagios that require attention.'));
+			$response->say(createTTS('There are currently ' . $count . ' new problems in nagios that require attention.'));
 		}
 		$response->say(createTTS('Please note, you will only be notified once per problem.'));
 		$response->pause();
