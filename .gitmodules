@@ -1,0 +1,6 @@
+[submodule "nagios-status"]
+	path = nagios-status
+	url = git://github.com/csmith/Nagios-Status.git
+[submodule "twilio-php"]
+	path = twilio-php
+	url = git://github.com/twilio/twilio-php.git
